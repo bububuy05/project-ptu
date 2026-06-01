@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pengenalan Alat Musik</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+      min-height: 100vh;
+      color: white;
+      padding: 20px;
+    }
+    .container { max-width: 900px; margin: 0 auto; }
+    h1 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 30px;
+      color: #e94560;
+    }
+    .card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 25px;
+      margin-bottom: 20px;
+      backdrop-filter: blur(10px);
+    }
+    .card h2 { font-size: 16px; color: #aaa; margin-bottom: 15px; }
+
+    /* Hasil */
+    .hasil-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+    .hasil-box {
+      background: rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 15px;
+      text-align: center;
+    }
+    .hasil-box .label { font-size: 12px; color: #aaa; margin-bottom: 5px; }
+    .hasil-box .value {
+      font-size: 32px;
+      font-weight: bold;
+      color: #1f9aff;
+    }
+    .confidence .value { color: #2ecc71; }
+    .info-box {
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 15px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #ddd;
+      min-height: 60px;
+    }
+
+    /* Tombol */
+    .btn-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    button {
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    button:hover { transform: translateY(-2px); opacity: 0.9; }
+    button:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+    .btn-rekam    { background: #e74c3c; color: white; }
+    .btn-dengar   { background: #1f9aff; color: white; }
+    .btn-simpan   { background: #27ae60; color: white; }
+
+    /* Kecepatan */
+    .kecepatan-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    .kecepatan-row label { font-size: 13px; color: #aaa; }
+    select {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+    }
+
+    /* Status */
+    .status {
+      text-align: center;
+      font-size: 13px;
+      color: #aaa;
+      padding: 8px;
+    }
+
+    /* MFCC */
+    .mfcc-img {
+      width: 100%;
+      border-radius: 10px;
+      display: none;
+    }
+    .mfcc-placeholder {
+      text-align: center;
+      color: #555;
+      padding: 40px;
+      font-size: 13px;
+    }
+
+    /* Loading */
+    .loading {
+      display: none;
+      text-align: center;
+      padding: 10px;
+      color: #1f9aff;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>🎵 Aplikasi Pengenalan Alat Musik</h1>
+  <p style="text-align:center; color:#aaa; margin-bottom:25px; font-size:13px;">
+    Kelompok D1 — ASR & TTS Bahasa Indonesia
+  </p>
+
+  <!-- Kontrol -->
+  <div class="card">
+    <h2>🎤 Modul ASR — Rekam Suara</h2>
+
+    <div class="kecepatan-row">
+      <label>Kecepatan TTS:</label>
+      <select id="kecepatan">
+        <option value="normal">Normal</option>
+        <option value="lambat">Lambat</option>
+      </select>
+    </div>
+
+    <div class="btn-grid">
+      <button class="btn-rekam" onclick="rekam()">🎤 Rekam Suara</button>
+      <button class="btn-dengar" id="btn-dengar" onclick="dengarkan()" disabled>🔊 Dengarkan</button>
+      <button class="btn-simpan" id="btn-simpan" onclick="simpan()" disabled>💾 Simpan MP3</button>
+    </div>
+
+    <div class="loading" id="loading">⏳ Sedang memproses...</div>
+    <div class="status" id="status">Siap — tekan rekam dan ucapkan nama alat musik</div>
+  </div>
+
+  <!-- Hasil ASR -->
+  <div class="card">
+    <h2>📊 Hasil Prediksi</h2>
+    <div class="hasil-grid">
+      <div class="hasil-box">
+        <div class="label">Alat Musik Terdeteksi</div>
+        <div class="value" id="hasil">-</div>
+      </div>
+      <div class="hasil-box confidence">
+        <div class="label">Tingkat Keyakinan</div>
+        <div class="value" id="confidence">-</div>
+      </div>
+    </div>
+    <div class="label" style="margin-bottom:8px; font-size:12px; color:#aaa;">Informasi Alat Musik:</div>
+    <div class="info-box" id="info">Ucapkan nama alat musik untuk melihat informasinya...</div>
+  </div>
+
+  <!-- Visualisasi MFCC -->
+  <div class="card">
+    <h2>📈 Visualisasi MFCC</h2>
+    <div class="mfcc-placeholder" id="mfcc-placeholder">
+      Rekam suara untuk melihat grafik MFCC
+    </div>
+    <img class="mfcc-img" id="mfcc-img" src="" alt="MFCC">
+  </div>
+
+  <!-- TTS Manual -->
+  <div class="card">
+    <h2>🔊 Modul TTS — Ketik Teks</h2>
+    <textarea id="teks-tts" placeholder="Ketik teks yang ingin dibacakan..."
+      style="width:100%; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.2);
+             color:white; padding:12px; border-radius:10px; font-size:13px;
+             resize:vertical; min-height:80px; margin-bottom:10px;"></textarea>
+    <div style="display:flex; gap:10px;">
+      <button class="btn-dengar" style="flex:1" onclick="ttsManual()">🔊 Bacakan Teks</button>
+      <button class="btn-simpan" style="flex:1" onclick="simpanManual()">💾 Simpan MP3</button>
+    </div>
+  </div>
+
+  <!-- Audio Player -->
+  <audio id="audio-player" controls
+    style="width:100%; margin-top:10px; display:none; border-radius:10px;">
+  </audio>
+</div>
+
+<script>
+  let infoTerakhir = "";
+
+  async function rekam() {
+    document.getElementById("loading").style.display = "block";
+    document.getElementById("status").textContent = "🔴 Merekam selama 2 detik...";
+    document.querySelector(".btn-rekam").disabled = true;
+
+    try {
+      const res  = await fetch("/rekam", { method: "POST" });
+      const data = await res.json();
+
+      if (data.status === "success") {
+        document.getElementById("hasil").textContent      = data.prediksi;
+        document.getElementById("confidence").textContent = data.confidence + "%";
+        document.getElementById("info").textContent       = data.info;
+        infoTerakhir = data.info;
+
+        // Tampilkan MFCC
+        const img = document.getElementById("mfcc-img");
+        img.src = "/static/mfcc.png?" + new Date().getTime();
+        img.style.display = "block";
+        document.getElementById("mfcc-placeholder").style.display = "none";
+
+        document.getElementById("btn-dengar").disabled = false;
+        document.getElementById("btn-simpan").disabled = false;
+        document.getElementById("status").textContent  = "✅ Selesai!";
+      } else {
+        document.getElementById("status").textContent = "❌ Error: " + data.pesan;
+      }
+    } catch(e) {
+      document.getElementById("status").textContent = "❌ Gagal terhubung ke server";
+    }
+
+    document.getElementById("loading").style.display = "none";
+    document.querySelector(".btn-rekam").disabled = false;
+  }
+
+  async function dengarkan() {
+    if (!infoTerakhir) return;
+    const kecepatan = document.getElementById("kecepatan").value;
+    document.getElementById("status").textContent = "🔊 Membuat suara...";
+
+    const res = await fetch("/tts", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ teks: infoTerakhir, kecepatan: kecepatan })
+    });
+    const data = await res.json();
+    if (data.status === "success") {
+      const player = document.getElementById("audio-player");
+      player.src = "/static/output_tts.mp3?" + new Date().getTime();
+      player.style.display = "block";
+      player.play();
+      document.getElementById("status").textContent = "✅ Selesai!";
+    }
+  }
+
+  async function ttsManual() {
+    const teks = document.getElementById("teks-tts").value;
+    if (!teks) return;
+    const kecepatan = document.getElementById("kecepatan").value;
+
+    const res = await fetch("/tts", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ teks: teks, kecepatan: kecepatan })
+    });
+    const data = await res.json();
+    if (data.status === "success") {
+      const player = document.getElementById("audio-player");
+      player.src = "/static/output_tts.mp3?" + new Date().getTime();
+      player.style.display = "block";
+      player.play();
+    }
+  }
+
+  function simpan() {
+    window.location.href = "/simpan";
+  }
+
+  async function simpanManual() {
+    const teks = document.getElementById("teks-tts").value;
+    if (!teks) return;
+    const kecepatan = document.getElementById("kecepatan").value;
+
+    const res = await fetch("/tts", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ teks: teks, kecepatan: kecepatan })
+    });
+    const data = await res.json();
+    if (data.status === "success") {
+      window.location.href = "/simpan";
+    }
+  }
+</script>
+</body>
+</html>
