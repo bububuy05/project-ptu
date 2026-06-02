@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-
-<html class="light" lang="id"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Pengenalan Alat Musik - Luthier Vision</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
+<html class="light" lang="id">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Pengenalan Alat Musik - Luthier Vision</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        /* Konfigurasi Tailwind tetap sama seperti sebelumnya */
         tailwind.config = {
           darkMode: "class",
           theme: {
@@ -100,8 +101,8 @@
             },
           },
         }
-      </script>
-<style>
+    </script>
+    <style>
         body {
           background-color: #f8f9fa;
           background-image: radial-gradient(circle at 50% -20%, #ffffff 0%, #f1f3f4 100%);
@@ -128,19 +129,12 @@
           box-shadow: 0 4px 15px rgba(0, 229, 255, 0.25);
           transform: translateY(-1px);
         }
-        .btn-accent:active:not(:disabled) {
-          transform: translateY(1px);
-        }
 
         .btn-secondary-modern {
           background-color: #f1f3f4;
           color: #1c1b1b;
           border: 1px solid #dee4e5;
           transition: all 0.2s;
-        }
-        .btn-secondary-modern:hover:not(:disabled) {
-          background-color: #e1e3e4;
-          border-color: #bfc8ca;
         }
 
         .info-panel {
@@ -149,104 +143,125 @@
           border: 1px solid rgba(0, 0, 0, 0.04);
         }
 
-        .custom-select {
-          appearance: none;
-          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2371787a'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
-          background-repeat: no-repeat;
-          background-position: right 0.75rem center;
-          background-size: 1rem;
+        .img-container {
+            background: white;
+            border: 1px solid rgba(0,0,0,0.05);
+            border-radius: 0.75rem;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
         }
     </style>
 </head>
 <body class="text-on-surface p-6 md:p-lg min-h-screen">
 <div class="max-w-4xl mx-auto space-y-md">
-<!-- Header -->
-<header class="text-center space-y-2 mb-12">
-<h1 class="text-headline-lg-mobile md:text-headline-lg font-bold text-on-surface tracking-tight leading-tight">
-<span class="block font-semibold text-primary text-label-sm uppercase tracking-widest mb-1">Aplikasi Pengenalan</span>
+    <!-- Header -->
+    <header class="text-center space-y-2 mb-12">
+        <h1 class="text-headline-lg-mobile md:text-headline-lg font-bold text-on-surface tracking-tight leading-tight">
+            <span class="block font-semibold text-primary text-label-sm uppercase tracking-widest mb-1">Aplikasi Pengenalan</span>
             Alat Musik
         </h1>
-<div class="inline-block px-4 py-1 rounded-full bg-surface-container-high border border-outline-variant">
-<p class="text-[10px] md:text-label-sm text-on-surface-variant tracking-widest uppercase font-semibold">
+        <div class="inline-block px-4 py-1 rounded-full bg-surface-container-high border border-outline-variant">
+            <p class="text-[10px] md:text-label-sm text-on-surface-variant tracking-widest uppercase font-semibold">
                 Kelompok D1 — ASR &amp; TTS Bahasa Indonesia
             </p>
-</div>
-</header>
-<!-- Kontrol Modul ASR -->
-<section class="modern-card p-md space-y-md">
-<div class="flex items-center justify-between border-b border-black/5 pb-sm">
-<h2 class="text-headline-md text-on-surface flex items-center gap-xs font-semibold">
-<span class="material-symbols-outlined text-primary">mic_none</span>
+        </div>
+    </header>
+
+    <!-- Kontrol Modul ASR -->
+    <section class="modern-card p-md space-y-md">
+        <div class="flex items-center justify-between border-b border-black/5 pb-sm">
+            <h2 class="text-headline-md text-on-surface flex items-center gap-xs font-semibold">
+                <span class="material-symbols-outlined text-primary">mic_none</span>
                 Modul ASR
             </h2>
-<div class="flex items-center gap-sm">
-<label class="text-label-sm text-on-surface-variant font-medium">Kecepatan TTS</label>
-<select class="custom-select bg-surface-container-low text-on-surface border-outline-variant rounded-lg text-sm px-4 pr-10 py-1.5 focus:ring-1 focus:ring-primary outline-none" id="kecepatan">
-<option value="normal">Normal</option>
-<option value="lambat">Lambat</option>
-</select>
-</div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-sm">
-<button class="btn-accent py-3 px-md rounded-xl font-bold text-label-md flex items-center justify-center gap-2" onclick="rekam()">
-<span class="material-symbols-outlined text-[20px]">record_voice_over</span> Rekam Suara
+            <div class="flex items-center gap-sm">
+                <label class="text-label-sm text-on-surface-variant font-medium">Kecepatan TTS</label>
+                <select class="bg-surface-container-low text-on-surface border-outline-variant rounded-lg text-sm px-4 py-1.5 outline-none" id="kecepatan">
+                    <option value="normal">Normal</option>
+                    <option value="lambat">Lambat</option>
+                </select>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-sm">
+            <button class="btn-accent py-3 px-md rounded-xl font-bold text-label-md flex items-center justify-center gap-2" onclick="rekam()">
+                <span class="material-symbols-outlined text-[20px]">record_voice_over</span> Rekam Suara
             </button>
-<button class="btn-secondary-modern py-3 px-md rounded-xl font-bold text-label-md flex items-center justify-center gap-2 disabled:opacity-40" disabled="" id="btn-dengar" onclick="dengarkan()">
-<span class="material-symbols-outlined text-[20px]">hearing</span> Dengarkan
+            <button class="btn-secondary-modern py-3 px-md rounded-xl font-bold text-label-md flex items-center justify-center gap-2 disabled:opacity-40" disabled="" id="btn-dengar" onclick="dengarkan()">
+                <span class="material-symbols-outlined text-[20px]">hearing</span> Dengarkan
             </button>
-<button class="btn-secondary-modern py-3 px-md rounded-xl font-bold text-label-md flex items-center justify-center gap-2 disabled:opacity-40" disabled="" id="btn-simpan" onclick="simpan()">
-<span class="material-symbols-outlined text-[20px]">save_alt</span> Simpan MP3
+            <button class="btn-secondary-modern py-3 px-md rounded-xl font-bold text-label-md flex items-center justify-center gap-2 disabled:opacity-40" disabled="" id="btn-simpan" onclick="simpan()">
+                <span class="material-symbols-outlined text-[20px]">save_alt</span> Simpan MP3
             </button>
-</div>
-<div class="space-y-xs">
-<div class="hidden text-center text-primary animate-pulse text-label-sm font-medium" id="loading">Memproses sinyal audio...</div>
-<div class="text-center text-outline text-label-sm italic" id="status">Siap — ketuk tombol rekam untuk memulai</div>
-</div>
-</section>
-<!-- Hasil Analisis -->
-<section class="modern-card p-md space-y-md">
-<h2 class="text-headline-md text-on-surface border-b border-black/5 pb-sm flex items-center gap-xs font-semibold">
-<span class="material-symbols-outlined text-primary">analytics</span>
+        </div>
+        <div class="space-y-xs">
+            <div class="hidden text-center text-primary animate-pulse text-label-sm font-medium" id="loading">Memproses sinyal audio...</div>
+            <div class="text-center text-outline text-label-sm italic" id="status">Siap — ketuk tombol rekam untuk memulai</div>
+        </div>
+    </section>
+
+    <!-- Hasil Analisis (BAGIAN YANG DIUPDATE DENGAN GAMBAR) -->
+    <section class="modern-card p-md space-y-md">
+        <h2 class="text-headline-md text-on-surface border-b border-black/5 pb-sm flex items-center gap-xs font-semibold">
+            <span class="material-symbols-outlined text-primary">analytics</span>
             Hasil Analisis
         </h2>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
-<div class="info-panel p-md text-center space-y-2">
-<span class="text-[11px] text-outline uppercase tracking-widest font-bold">Instrumen Terdeteksi</span>
-<div class="text-headline-lg text-primary" id="hasil">—</div>
-</div>
-<div class="info-panel p-md text-center space-y-2">
-<span class="text-[11px] text-outline uppercase tracking-widest font-bold">Tingkat Akurasi</span>
-<div class="text-headline-lg text-secondary" id="confidence">—</div>
-</div>
-</div>
-<div class="space-y-2">
-<label class="text-[11px] text-outline uppercase tracking-widest font-bold block ml-1">Informasi Detail</label>
-<div class="info-panel p-md text-body-md text-on-surface-variant min-h-[100px] leading-relaxed italic" id="info">
-                Berikan input suara untuk menganalisis karakteristik instrumen...
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+            <!-- Kolom Gambar -->
+            <div class="md:col-span-1">
+                <label class="text-[11px] text-outline uppercase tracking-widest font-bold block mb-2 text-center">Visual Instrumen</label>
+                <div class="img-container">
+                    <img id="img-alat" src="" alt="Menunggu input..." class="hidden w-full h-full object-contain p-2">
+                    <span id="img-placeholder" class="text-outline text-[40px] material-symbols-outlined">image</span>
+                </div>
             </div>
-</div>
-</section>
-<!-- Modul TTS Manual -->
-<section class="modern-card p-md space-y-md">
-<h2 class="text-headline-md text-on-surface border-b border-black/5 pb-sm flex items-center gap-xs font-semibold">
-<span class="material-symbols-outlined text-primary">keyboard_command_key</span>
+
+            <!-- Kolom Statistik -->
+            <div class="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-sm">
+                <div class="info-panel p-md text-center space-y-2">
+                    <span class="text-[11px] text-outline uppercase tracking-widest font-bold">Instrumen Terdeteksi</span>
+                    <div class="text-headline-lg text-primary" id="hasil">—</div>
+                </div>
+                <div class="info-panel p-md text-center space-y-2">
+                    <span class="text-[11px] text-outline uppercase tracking-widest font-bold">Tingkat Akurasi</span>
+                    <div class="text-headline-lg text-secondary" id="confidence">—</div>
+                </div>
+                <div class="sm:col-span-2 space-y-2">
+                    <label class="text-[11px] text-outline uppercase tracking-widest font-bold block ml-1">Informasi Detail</label>
+                    <div class="info-panel p-md text-body-md text-on-surface-variant min-h-[100px] leading-relaxed italic" id="info">
+                        Berikan input suara untuk menganalisis karakteristik instrumen...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modul TTS Manual tetap sama -->
+    <section class="modern-card p-md space-y-md">
+        <h2 class="text-headline-md text-on-surface border-b border-black/5 pb-sm flex items-center gap-xs font-semibold">
+            <span class="material-symbols-outlined text-primary">keyboard_command_key</span>
             Modul TTS Manual
         </h2>
-<textarea class="w-full bg-surface-container-low border border-outline-variant text-on-surface p-md rounded-xl text-body-md focus:ring-1 focus:ring-primary outline-none min-h-[120px] placeholder:text-outline transition-all focus:bg-white" id="teks-tts" placeholder="Ketik teks yang ingin dibacakan..."></textarea>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-sm">
-<button class="btn-accent py-3 px-md rounded-xl font-bold text-label-md flex items-center justify-center gap-2" onclick="ttsManual()">
-<span class="material-symbols-outlined text-[20px]">text_to_speech</span> Bacakan Teks
+        <textarea class="w-full bg-surface-container-low border border-outline-variant text-on-surface p-md rounded-xl text-body-md outline-none min-h-[120px]" id="teks-tts" placeholder="Ketik teks yang ingin dibacakan..."></textarea>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-sm">
+            <button class="btn-accent py-3 px-md rounded-xl font-bold text-label-md flex items-center justify-center gap-2" onclick="ttsManual()">
+                <span class="material-symbols-outlined text-[20px]">text_to_speech</span> Bacakan Teks
             </button>
-<button class="btn-secondary-modern py-3 px-md rounded-xl font-bold text-label-md flex items-center justify-center gap-2" onclick="simpanManual()">
-<span class="material-symbols-outlined text-[20px]">download_for_offline</span> Simpan MP3
+            <button class="btn-secondary-modern py-3 px-md rounded-xl font-bold text-label-md flex items-center justify-center gap-2" onclick="simpanManual()">
+                <span class="material-symbols-outlined text-[20px]">download_for_offline</span> Simpan MP3
             </button>
+        </div>
+    </section>
+
+    <!-- Audio Player -->
+    <div class="fixed bottom-margin left-margin right-margin md:bottom-md md:right-md md:left-auto md:w-[400px] z-50">
+        <audio class="w-full hidden rounded-full shadow-xl bg-white border border-outline-variant" controls="" id="audio-player"></audio>
+    </div>
 </div>
-</section>
-<!-- Audio Player -->
-<div class="fixed bottom-margin left-margin right-margin md:bottom-md md:right-md md:left-auto md:w-[400px] z-50">
-<audio class="w-full hidden rounded-full shadow-xl bg-white border border-outline-variant" controls="" id="audio-player"></audio>
-</div>
-</div>
+
 <script>
   let infoTerakhir = "";
 
@@ -266,6 +281,17 @@
         document.getElementById("info").textContent       = data.info;
         infoTerakhir = data.info;
 
+        // --- UPDATE GAMBAR ---
+        const imgElement = document.getElementById("img-alat");
+        const placeholder = document.getElementById("img-placeholder");
+        
+        if (data.gambar) {
+            imgElement.src = "/static/images/" + data.gambar;
+            imgElement.classList.remove("hidden");
+            placeholder.classList.add("hidden");
+        }
+        // ---------------------
+
         document.getElementById("btn-dengar").disabled = false;
         document.getElementById("btn-simpan").disabled = false;
         document.getElementById("status").textContent  = "Analisis selesai";
@@ -280,11 +306,11 @@
     btnRekam.disabled = false;
   }
 
+  // Fungsi lainnya (dengarkan, ttsManual, simpan) tetap sama seperti kode Anda
   async function dengarkan() {
     if (!infoTerakhir) return;
     const kecepatan = document.getElementById("kecepatan").value;
     document.getElementById("status").textContent = "Mensintesis suara...";
-
     const res = await fetch("/tts", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -305,7 +331,6 @@
     const teks = document.getElementById("teks-tts").value;
     if (!teks) return;
     const kecepatan = document.getElementById("kecepatan").value;
-
     const res = await fetch("/tts", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -321,24 +346,20 @@
     }
   }
 
-  function simpan() {
-    window.location.href = "/simpan";
-  }
+  function simpan() { window.location.href = "/simpan"; }
 
   async function simpanManual() {
     const teks = document.getElementById("teks-tts").value;
     if (!teks) return;
     const kecepatan = document.getElementById("kecepatan").value;
-
     const res = await fetch("/tts", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ teks: teks, kecepatan: kecepatan })
     });
     const data = await res.json();
-    if (data.status === "success") {
-      window.location.href = "/simpan";
-    }
+    if (data.status === "success") { window.location.href = "/simpan"; }
   }
 </script>
-</body></html>
+</body>
+</html>

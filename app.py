@@ -24,16 +24,46 @@ with open("scaler.pkl", "rb") as f:
 # =====================================================
 
 info_alat_musik = {
-    "gitar": "Gitar adalah alat musik petik modern yang memiliki senar dan sering digunakan dalam berbagai genre musik seperti pop, rock, dan jazz.",
-    "piano": "Piano adalah alat musik modern yang dimainkan menggunakan keyboard dan menghasilkan nada dari senar di dalamnya.",
-    "drums": "Drums adalah alat musik pukul modern yang digunakan untuk mengatur ritme dalam musik.",
-    "terompet": "Terompet adalah alat musik tiup modern berbahan logam yang menghasilkan suara nyaring dan sering digunakan dalam musik jazz dan orkestra.",
-    "biola": "Biola adalah alat musik gesek modern yang dimainkan menggunakan penggesek atau bow dan menghasilkan suara yang merdu.",
-    "suling": "Suling adalah alat musik tiup tradisional yang biasanya terbuat dari bambu dan banyak digunakan dalam musik daerah Indonesia.",
-    "kendang": "Kendang adalah alat musik pukul tradisional yang digunakan dalam musik daerah Indonesia seperti gamelan dan dangdut.",
-    "gong": "Gong adalah alat musik pukul tradisional berbentuk lingkaran logam yang menghasilkan suara khas dan dalam.",
-    "gamelan": "Gamelan adalah ansambel musik tradisional Indonesia yang terdiri dari berbagai alat musik pukul dan petik.",
-    "angklung": "Angklung adalah alat musik tradisional dari Jawa Barat yang dimainkan dengan cara digoyangkan dan telah diakui UNESCO."
+    "gitar": {
+        "teks": "Gitar adalah alat musik petik modern yang memiliki senar dan sering digunakan dalam berbagai genre musik seperti pop, rock, dan jazz.",
+        "gambar": "gitar.jpg"
+    },
+    "piano": {
+        "teks": "Piano adalah alat musik modern yang dimainkan menggunakan keyboard dan menghasilkan nada dari senar di dalamnya.",
+        "gambar": "piano.jpg"
+    },
+    "drums": {
+        "teks": "Drums adalah alat musik pukul modern yang digunakan untuk mengatur ritme dalam musik.",
+        "gambar": "drums.jpg"
+    },
+    "terompet": {
+        "teks": "Terompet adalah alat musik tiup modern berbahan logam yang menghasilkan suara nyaring dan sering digunakan dalam musik jazz dan orkestra.",
+        "gambar": "terompet.jpg"
+    },
+    "biola": {
+        "teks": "Biola adalah alat musik gesek modern yang dimainkan menggunakan penggesek atau bow dan menghasilkan suara yang merdu.",
+        "gambar": "biola.jpg"
+    },
+    "suling": {
+        "teks": "Suling adalah alat musik tiup tradisional yang biasanya terbuat dari bambu dan banyak digunakan dalam musik daerah Indonesia.",
+        "gambar": "suling.jpg"
+    },
+    "kendang": {
+        "teks": "Kendang adalah alat musik pukul tradisional yang digunakan dalam musik daerah Indonesia seperti gamelan dan dangdut.",
+        "gambar": "kendang.jpg"
+    },
+    "gong": {
+        "teks": "Gong adalah alat musik pukul tradisional berbentuk lingkaran logam yang menghasilkan suara khas dan dalam.",
+        "gambar": "gong.jpg"
+    },
+    "gamelan": {
+        "teks": "Gamelan adalah ansambel musik tradisional Indonesia yang terdiri dari berbagai alat musik pukul dan petik.",
+        "gambar": "gamelan.jpg"
+    },
+    "angklung": {
+        "teks": "Angklung adalah alat musik tradisional dari Jawa Barat yang dimainkan dengan cara digoyangkan dan telah diakui UNESCO.",
+        "gambar": "angklung.jpg"
+    }
 }
 
 SAMPLE_RATE = 16000
@@ -145,9 +175,14 @@ def rekam():
             1
         )
 
-        info = info_alat_musik.get(
+        # Mengambil data dictionary berdasarkan hasil prediksi
+        # Jika alat musik tidak terdaftar, akan mengembalikan teks default dan gambar default
+        data_alat = info_alat_musik.get(
             prediksi,
-            "Informasi tidak tersedia."
+            {
+                "teks": "Informasi tidak tersedia.",
+                "gambar": "default.jpg"
+            }
         )
 
         # ==========================================
@@ -191,11 +226,13 @@ def rekam():
 
         plt.close()
 
+        # Return JSONResponse dengan tambahan key "gambar"
         return jsonify({
             "status": "success",
             "prediksi": prediksi.upper(),
             "confidence": confidence,
-            "info": info
+            "info": data_alat["teks"],       # Mengambil teks deskripsi
+            "gambar": data_alat["gambar"]    # Mengambil nama file gambar (misal: "gitar.jpg")
         })
 
     except Exception as e:
