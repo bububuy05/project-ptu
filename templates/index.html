@@ -1,216 +1,260 @@
 <!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pengenalan Alat Musik</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
-      min-height: 100vh;
-      color: white;
-      padding: 20px;
-    }
-    .container { max-width: 900px; margin: 0 auto; }
-    h1 {
-      text-align: center;
-      font-size: 28px;
-      margin-bottom: 30px;
-      color: #e94560;
-    }
-    .card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 16px;
-      padding: 25px;
-      margin-bottom: 20px;
-      backdrop-filter: blur(10px);
-    }
-    .card h2 { font-size: 16px; color: #aaa; margin-bottom: 15px; }
 
-    /* Hasil */
-    .hasil-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
-      margin-bottom: 15px;
-    }
-    .hasil-box {
-      background: rgba(255,255,255,0.08);
-      border-radius: 12px;
-      padding: 15px;
-      text-align: center;
-    }
-    .hasil-box .label { font-size: 12px; color: #aaa; margin-bottom: 5px; }
-    .hasil-box .value {
-      font-size: 32px;
-      font-weight: bold;
-      color: #1f9aff;
-    }
-    .confidence .value { color: #2ecc71; }
-    .info-box {
-      background: rgba(255,255,255,0.05);
-      border-radius: 12px;
-      padding: 15px;
-      font-size: 14px;
-      line-height: 1.6;
-      color: #ddd;
-      min-height: 60px;
-    }
+<html class="light" lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pengenalan Alat Musik - Luthier Vision</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-tint": "#00daf3",
+                      "on-secondary-container": "#233143",
+                      "on-surface": "#1c1b1b",
+                      "on-background": "#1c1b1b",
+                      "inverse-primary": "#c3f5ff",
+                      "surface-bright": "#ffffff",
+                      "on-tertiary-fixed": "#dae2fd",
+                      "surface-container-highest": "#e1e3e4",
+                      "tertiary": "#3f465c",
+                      "surface-dim": "#f8f9fa",
+                      "background": "#f8f9fa",
+                      "on-primary": "#00363d",
+                      "on-primary-container": "#00626e",
+                      "secondary-fixed": "#39485a",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-fixed": "#9cf0ff",
+                      "surface-container-low": "#f2f4f5",
+                      "on-secondary-fixed": "#d4e4fa",
+                      "primary-fixed-dim": "#006875",
+                      "inverse-surface": "#313030",
+                      "outline": "#71787a",
+                      "tertiary-container": "#3f465c",
+                      "on-secondary-fixed-variant": "#b9c8de",
+                      "on-primary-fixed-variant": "#c3f5ff",
+                      "on-tertiary-fixed-variant": "#bec6e0",
+                      "surface-container-high": "#ebeef0",
+                      "surface": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "on-secondary": "#ffffff",
+                      "on-tertiary-container": "#ffffff",
+                      "tertiary-fixed": "#131b2e",
+                      "surface-container": "#f1f3f4",
+                      "tertiary-fixed-dim": "#283044",
+                      "on-tertiary": "#ffffff",
+                      "secondary-container": "#d4e4fa",
+                      "primary-fixed": "#001f24",
+                      "on-surface-variant": "#40484a",
+                      "on-error": "#ffffff",
+                      "secondary-fixed-dim": "#233143",
+                      "secondary": "#4a5b71",
+                      "primary": "#006875",
+                      "outline-variant": "#bfc8ca",
+                      "on-error-container": "#410002",
+                      "inverse-on-surface": "#f4f0ef",
+                      "surface-variant": "#dee4e5",
+                      "primary-container": "#00e5ff",
+                      "error": "#ba1a1a"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "lg": "40px",
+                      "margin": "32px",
+                      "xl": "64px",
+                      "base": "8px",
+                      "md": "24px",
+                      "xs": "4px",
+                      "gutter": "24px",
+                      "sm": "12px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Inter"],
+                      "label-md": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "body-md": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "headline-lg-mobile": ["Inter"],
+                      "display-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+        body {
+          background-color: #f8f9fa;
+          background-image: radial-gradient(circle at 50% -20%, #ffffff 0%, #f1f3f4 100%);
+          font-family: 'Inter', sans-serif;
+        }
+        
+        .modern-card {
+          background: rgba(255, 255, 255, 0.7);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          border: 1px solid rgba(0, 0, 0, 0.05);
+          box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05);
+          border-radius: 1rem;
+        }
 
-    /* Tombol */
-    .btn-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 15px;
-    }
-    button {
-      padding: 12px;
-      border: none;
-      border-radius: 10px;
-      font-size: 14px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    button:hover { transform: translateY(-2px); opacity: 0.9; }
-    button:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-    .btn-rekam    { background: #e74c3c; color: white; }
-    .btn-dengar   { background: #1f9aff; color: white; }
-    .btn-simpan   { background: #27ae60; color: white; }
+        .btn-accent {
+          background-color: #00e5ff;
+          color: #00363d;
+          transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+          border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .btn-accent:hover:not(:disabled) {
+          background-color: #00d2eb;
+          box-shadow: 0 4px 15px rgba(0, 229, 255, 0.25);
+          transform: translateY(-1px);
+        }
+        .btn-accent:active:not(:disabled) {
+          transform: translateY(1px);
+        }
 
-    /* Kecepatan */
-    .kecepatan-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 15px;
-    }
-    .kecepatan-row label { font-size: 13px; color: #aaa; }
-    select {
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.2);
-      color: white;
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-size: 13px;
-    }
+        .btn-secondary-modern {
+          background-color: #f1f3f4;
+          color: #1c1b1b;
+          border: 1px solid #dee4e5;
+          transition: all 0.2s;
+        }
+        .btn-secondary-modern:hover:not(:disabled) {
+          background-color: #e1e3e4;
+          border-color: #bfc8ca;
+        }
 
-    /* Status */
-    .status {
-      text-align: center;
-      font-size: 13px;
-      color: #aaa;
-      padding: 8px;
-    }
+        .info-panel {
+          background: rgba(0, 0, 0, 0.03);
+          border-radius: 0.75rem;
+          border: 1px solid rgba(0, 0, 0, 0.04);
+        }
 
-    /* MFCC */
-    .mfcc-img {
-      width: 100%;
-      border-radius: 10px;
-      display: none;
-    }
-    .mfcc-placeholder {
-      text-align: center;
-      color: #555;
-      padding: 40px;
-      font-size: 13px;
-    }
-
-    /* Loading */
-    .loading {
-      display: none;
-      text-align: center;
-      padding: 10px;
-      color: #1f9aff;
-      font-size: 13px;
-    }
-  </style>
+        .custom-select {
+          appearance: none;
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2371787a'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+          background-repeat: no-repeat;
+          background-position: right 0.75rem center;
+          background-size: 1rem;
+        }
+    </style>
 </head>
-<body>
-<div class="container">
-  <h1>🎵 Aplikasi Pengenalan Alat Musik</h1>
-  <p style="text-align:center; color:#aaa; margin-bottom:25px; font-size:13px;">
-    Kelompok D1 — ASR & TTS Bahasa Indonesia
-  </p>
-
-  <!-- Kontrol -->
-  <div class="card">
-    <h2>🎤 Modul ASR — Rekam Suara</h2>
-
-    <div class="kecepatan-row">
-      <label>Kecepatan TTS:</label>
-      <select id="kecepatan">
-        <option value="normal">Normal</option>
-        <option value="lambat">Lambat</option>
-      </select>
-    </div>
-
-    <div class="btn-grid">
-      <button class="btn-rekam" onclick="rekam()">🎤 Rekam Suara</button>
-      <button class="btn-dengar" id="btn-dengar" onclick="dengarkan()" disabled>🔊 Dengarkan</button>
-      <button class="btn-simpan" id="btn-simpan" onclick="simpan()" disabled>💾 Simpan MP3</button>
-    </div>
-
-    <div class="loading" id="loading">⏳ Sedang memproses...</div>
-    <div class="status" id="status">Siap — tekan rekam dan ucapkan nama alat musik</div>
-  </div>
-
-  <!-- Hasil ASR -->
-  <div class="card">
-    <h2>📊 Hasil Prediksi</h2>
-    <div class="hasil-grid">
-      <div class="hasil-box">
-        <div class="label">Alat Musik Terdeteksi</div>
-        <div class="value" id="hasil">-</div>
-      </div>
-      <div class="hasil-box confidence">
-        <div class="label">Tingkat Keyakinan</div>
-        <div class="value" id="confidence">-</div>
-      </div>
-    </div>
-    <div class="label" style="margin-bottom:8px; font-size:12px; color:#aaa;">Informasi Alat Musik:</div>
-    <div class="info-box" id="info">Ucapkan nama alat musik untuk melihat informasinya...</div>
-  </div>
-
-  <!-- Visualisasi MFCC -->
-  <div class="card">
-    <h2>📈 Visualisasi MFCC</h2>
-    <div class="mfcc-placeholder" id="mfcc-placeholder">
-      Rekam suara untuk melihat grafik MFCC
-    </div>
-    <img class="mfcc-img" id="mfcc-img" src="" alt="MFCC">
-  </div>
-
-  <!-- TTS Manual -->
-  <div class="card">
-    <h2>🔊 Modul TTS — Ketik Teks</h2>
-    <textarea id="teks-tts" placeholder="Ketik teks yang ingin dibacakan..."
-      style="width:100%; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.2);
-             color:white; padding:12px; border-radius:10px; font-size:13px;
-             resize:vertical; min-height:80px; margin-bottom:10px;"></textarea>
-    <div style="display:flex; gap:10px;">
-      <button class="btn-dengar" style="flex:1" onclick="ttsManual()">🔊 Bacakan Teks</button>
-      <button class="btn-simpan" style="flex:1" onclick="simpanManual()">💾 Simpan MP3</button>
-    </div>
-  </div>
-
-  <!-- Audio Player -->
-  <audio id="audio-player" controls
-    style="width:100%; margin-top:10px; display:none; border-radius:10px;">
-  </audio>
+<body class="text-on-surface p-6 md:p-lg min-h-screen">
+<div class="max-w-4xl mx-auto space-y-md">
+<!-- Header -->
+<header class="text-center space-y-2 mb-12">
+<h1 class="text-headline-lg-mobile md:text-headline-lg font-bold text-on-surface tracking-tight leading-tight">
+<span class="block font-semibold text-primary text-label-sm uppercase tracking-widest mb-1">Aplikasi Pengenalan</span>
+            Alat Musik
+        </h1>
+<div class="inline-block px-4 py-1 rounded-full bg-surface-container-high border border-outline-variant">
+<p class="text-[10px] md:text-label-sm text-on-surface-variant tracking-widest uppercase font-semibold">
+                Kelompok D1 — ASR &amp; TTS Bahasa Indonesia
+            </p>
 </div>
-
+</header>
+<!-- Kontrol Modul ASR -->
+<section class="modern-card p-md space-y-md">
+<div class="flex items-center justify-between border-b border-black/5 pb-sm">
+<h2 class="text-headline-md text-on-surface flex items-center gap-xs font-semibold">
+<span class="material-symbols-outlined text-primary">mic_none</span>
+                Modul ASR
+            </h2>
+<div class="flex items-center gap-sm">
+<label class="text-label-sm text-on-surface-variant font-medium">Kecepatan TTS</label>
+<select class="custom-select bg-surface-container-low text-on-surface border-outline-variant rounded-lg text-sm px-4 pr-10 py-1.5 focus:ring-1 focus:ring-primary outline-none" id="kecepatan">
+<option value="normal">Normal</option>
+<option value="lambat">Lambat</option>
+</select>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-sm">
+<button class="btn-accent py-3 px-md rounded-xl font-bold text-label-md flex items-center justify-center gap-2" onclick="rekam()">
+<span class="material-symbols-outlined text-[20px]">record_voice_over</span> Rekam Suara
+            </button>
+<button class="btn-secondary-modern py-3 px-md rounded-xl font-bold text-label-md flex items-center justify-center gap-2 disabled:opacity-40" disabled="" id="btn-dengar" onclick="dengarkan()">
+<span class="material-symbols-outlined text-[20px]">hearing</span> Dengarkan
+            </button>
+<button class="btn-secondary-modern py-3 px-md rounded-xl font-bold text-label-md flex items-center justify-center gap-2 disabled:opacity-40" disabled="" id="btn-simpan" onclick="simpan()">
+<span class="material-symbols-outlined text-[20px]">save_alt</span> Simpan MP3
+            </button>
+</div>
+<div class="space-y-xs">
+<div class="hidden text-center text-primary animate-pulse text-label-sm font-medium" id="loading">Memproses sinyal audio...</div>
+<div class="text-center text-outline text-label-sm italic" id="status">Siap — ketuk tombol rekam untuk memulai</div>
+</div>
+</section>
+<!-- Hasil Analisis -->
+<section class="modern-card p-md space-y-md">
+<h2 class="text-headline-md text-on-surface border-b border-black/5 pb-sm flex items-center gap-xs font-semibold">
+<span class="material-symbols-outlined text-primary">analytics</span>
+            Hasil Analisis
+        </h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<div class="info-panel p-md text-center space-y-2">
+<span class="text-[11px] text-outline uppercase tracking-widest font-bold">Instrumen Terdeteksi</span>
+<div class="text-headline-lg text-primary" id="hasil">—</div>
+</div>
+<div class="info-panel p-md text-center space-y-2">
+<span class="text-[11px] text-outline uppercase tracking-widest font-bold">Tingkat Akurasi</span>
+<div class="text-headline-lg text-secondary" id="confidence">—</div>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-[11px] text-outline uppercase tracking-widest font-bold block ml-1">Informasi Detail</label>
+<div class="info-panel p-md text-body-md text-on-surface-variant min-h-[100px] leading-relaxed italic" id="info">
+                Berikan input suara untuk menganalisis karakteristik instrumen...
+            </div>
+</div>
+</section>
+<!-- Modul TTS Manual -->
+<section class="modern-card p-md space-y-md">
+<h2 class="text-headline-md text-on-surface border-b border-black/5 pb-sm flex items-center gap-xs font-semibold">
+<span class="material-symbols-outlined text-primary">keyboard_command_key</span>
+            Modul TTS Manual
+        </h2>
+<textarea class="w-full bg-surface-container-low border border-outline-variant text-on-surface p-md rounded-xl text-body-md focus:ring-1 focus:ring-primary outline-none min-h-[120px] placeholder:text-outline transition-all focus:bg-white" id="teks-tts" placeholder="Ketik teks yang ingin dibacakan..."></textarea>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-sm">
+<button class="btn-accent py-3 px-md rounded-xl font-bold text-label-md flex items-center justify-center gap-2" onclick="ttsManual()">
+<span class="material-symbols-outlined text-[20px]">text_to_speech</span> Bacakan Teks
+            </button>
+<button class="btn-secondary-modern py-3 px-md rounded-xl font-bold text-label-md flex items-center justify-center gap-2" onclick="simpanManual()">
+<span class="material-symbols-outlined text-[20px]">download_for_offline</span> Simpan MP3
+            </button>
+</div>
+</section>
+<!-- Audio Player -->
+<div class="fixed bottom-margin left-margin right-margin md:bottom-md md:right-md md:left-auto md:w-[400px] z-50">
+<audio class="w-full hidden rounded-full shadow-xl bg-white border border-outline-variant" controls="" id="audio-player"></audio>
+</div>
+</div>
 <script>
   let infoTerakhir = "";
 
   async function rekam() {
-    document.getElementById("loading").style.display = "block";
-    document.getElementById("status").textContent = "🔴 Merekam selama 2 detik...";
-    document.querySelector(".btn-rekam").disabled = true;
+    document.getElementById("loading").classList.remove("hidden");
+    document.getElementById("status").textContent = "Merekam audio (2 detik)...";
+    const btnRekam = document.querySelector(".btn-accent");
+    btnRekam.disabled = true;
 
     try {
       const res  = await fetch("/rekam", { method: "POST" });
@@ -222,30 +266,24 @@
         document.getElementById("info").textContent       = data.info;
         infoTerakhir = data.info;
 
-        // Tampilkan MFCC
-        const img = document.getElementById("mfcc-img");
-        img.src = "/static/mfcc.png?" + new Date().getTime();
-        img.style.display = "block";
-        document.getElementById("mfcc-placeholder").style.display = "none";
-
         document.getElementById("btn-dengar").disabled = false;
         document.getElementById("btn-simpan").disabled = false;
-        document.getElementById("status").textContent  = "✅ Selesai!";
+        document.getElementById("status").textContent  = "Analisis selesai";
       } else {
-        document.getElementById("status").textContent = "❌ Error: " + data.pesan;
+        document.getElementById("status").textContent = "Kesalahan: " + data.pesan;
       }
     } catch(e) {
-      document.getElementById("status").textContent = "❌ Gagal terhubung ke server";
+      document.getElementById("status").textContent = "Gagal terhubung ke server";
     }
 
-    document.getElementById("loading").style.display = "none";
-    document.querySelector(".btn-rekam").disabled = false;
+    document.getElementById("loading").classList.add("hidden");
+    btnRekam.disabled = false;
   }
 
   async function dengarkan() {
     if (!infoTerakhir) return;
     const kecepatan = document.getElementById("kecepatan").value;
-    document.getElementById("status").textContent = "🔊 Membuat suara...";
+    document.getElementById("status").textContent = "Mensintesis suara...";
 
     const res = await fetch("/tts", {
       method: "POST",
@@ -256,9 +294,10 @@
     if (data.status === "success") {
       const player = document.getElementById("audio-player");
       player.src = "/static/output_tts.mp3?" + new Date().getTime();
-      player.style.display = "block";
+      player.classList.remove("hidden");
+      player.classList.add("block");
       player.play();
-      document.getElementById("status").textContent = "✅ Selesai!";
+      document.getElementById("status").textContent = "Audio siap diputar";
     }
   }
 
@@ -276,7 +315,8 @@
     if (data.status === "success") {
       const player = document.getElementById("audio-player");
       player.src = "/static/output_tts.mp3?" + new Date().getTime();
-      player.style.display = "block";
+      player.classList.remove("hidden");
+      player.classList.add("block");
       player.play();
     }
   }
@@ -301,5 +341,4 @@
     }
   }
 </script>
-</body>
-</html>
+</body></html>
