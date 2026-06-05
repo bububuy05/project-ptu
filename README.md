@@ -252,20 +252,6 @@ akan dibuat secara otomatis.
 
 ---
 
-## ▶️ Menjalankan Aplikasi
-
-```bash
-python app.py
-```
-
-Buka browser:
-
-```text
-http://127.0.0.1:5000
-```
-
----
-
 ## 📊 Evaluasi Model
 
 Evaluasi dilakukan menggunakan:
@@ -291,15 +277,26 @@ confusion_matrix.png
 
 ---
 
-## 📸 Tampilan Sistem
+## ▶️ Menjalankan Aplikasi
 
-Tambahkan screenshot aplikasi pada bagian ini.
+```bash
+python app.py
+```
 
-```md
-![Home](screenshots/Tampilan.png)
+Buka browser:
+
+```text
+http://127.0.0.1:5000
 ```
 
 ---
+
+## 📸 Tampilan Sistem
+
+<p align="center">
+  <img src="./screenshots/Tampilan.png" width="900">
+</p>
+
 
 ## 👨‍💻 Pengembang
 
